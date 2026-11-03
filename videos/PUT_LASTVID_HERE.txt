@@ -1,0 +1,6 @@
+MINI VLOG FOR YOU  (last stage, plays after the other videos)
+
+Put your vlog in this folder and name it:   lastvid.mp4
+(lastvid.mov or minivlog.mp4 also work)
+
+To change its note: open index.html and search for the word  LASTVID

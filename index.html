@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Little Surprise ♡</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Nunito:wght@400;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--blush:#FCEEF2;--cream:#FFF9F6;--rose:#C75B78;--plum:#512D3B;--mauve:#745C65;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:Nunito,system-ui,sans-serif;color:var(--plum);background:linear-gradient(135deg,#FCEEF2,#FFF9F6,#F9DDE6,#FFF9F6);background-size:300% 300%;animation:bg 18s ease-in-out infinite;overflow-x:hidden;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+@keyframes bg{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#fx span{position:absolute;bottom:-60px;opacity:0;color:var(--rose);animation:rise linear infinite;will-change:transform}
+@keyframes rise{0%{transform:translate3d(0,0,0) rotate(0);opacity:0}10%{opacity:.35}90%{opacity:.25}100%{transform:translate3d(var(--dx),-115vh,0) rotate(var(--r));opacity:0}}
+main{position:relative;z-index:1;min-height:100%;display:grid;place-items:center;padding:20px 16px}
+.screen{width:100%;max-width:520px;background:var(--cream);border:1px solid #E8B7C4;border-radius:28px;box-shadow:0 14px 40px rgba(199,91,120,.18);padding:34px 24px;text-align:center;animation:in .6s ease both}
+.screen[hidden]{display:none}
+@keyframes in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:10px}
+h1,h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.15;color:var(--plum)}
+h1{font-size:clamp(2rem,8vw,2.8rem)}h2{font-size:clamp(1.7rem,6vw,2.2rem)}
+p{color:var(--mauve);line-height:1.6;margin:12px 0}
+input,select{width:100%;font:inherit;padding:14px 16px;border-radius:16px;border:1.5px solid #E8B7C4;background:#fff;color:var(--plum);margin-top:14px;text-align:center}
+.row{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px}
+button{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:999px;padding:14px 28px;min-height:48px;background:var(--rose);color:#fff;margin-top:18px;box-shadow:0 6px 16px rgba(199,91,120,.35);transition:transform .15s}
+button:hover{transform:translateY(-2px)}
+button.ghost{background:transparent;color:var(--rose);border:1.5px solid var(--rose);box-shadow:none}
+:focus-visible{outline:3px solid var(--plum);outline-offset:3px}
+.msg{min-height:1.4em;font-size:.92rem;color:#B03A5B;font-weight:600;margin-top:10px}
+.deco{color:#E8A3B5;letter-spacing:.4em;margin-top:18px}
+.lock{font-size:4.5rem;display:inline-block;animation:sway 3s ease-in-out infinite}
+@keyframes sway{50%{transform:rotate(-8deg) scale(1.05)}}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+#pass{letter-spacing:.7em;font-size:1.5rem;text-indent:.7em}
+.big{font-size:clamp(1.9rem,9vw,3rem);color:var(--rose)}
+.letter{background:#fff;border:1px solid #EBCBD3;border-radius:6px 18px 6px 18px;padding:22px;margin-top:18px;text-align:left;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.2rem;color:var(--plum);box-shadow:0 4px 14px rgba(81,45,59,.1);background-image:repeating-linear-gradient(transparent 0 29px,#F6DCE3 29px 30px);line-height:30px}
+#g{max-width:640px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.tile{position:relative;aspect-ratio:4/5;margin:0;padding:0;border-radius:20px;border:2px solid #E8B7C4;background:linear-gradient(145deg,#FCEEF2,#F4C9D5);overflow:hidden;display:grid;place-items:center;color:var(--rose);font-size:2rem}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile .n{position:absolute;top:8px;left:10px;font-size:.8rem;font-weight:700;background:var(--cream);border-radius:999px;padding:2px 9px}
+.tile .tap{position:absolute;bottom:8px;font-size:.7rem;color:var(--plum);background:rgba(255,249,246,.85);border-radius:999px;padding:2px 10px;font-weight:700}
+.nav{display:flex;justify-content:space-between;gap:10px}
+.nav button{flex:1;padding:14px 10px}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
+.dots i{width:10px;height:10px;border-radius:50%;background:#E8B7C4}.dots i.on{background:var(--rose);transform:scale(1.4)}
+.letter{white-space:pre-wrap}
+.typing::after{content:"|";color:var(--rose);animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+#ov{position:fixed;inset:0;z-index:30;background:rgba(81,45,59,0);transition:background .6s}
+#ov.on{background:rgba(81,45,59,.6)}
+#card{position:fixed;perspective:1000px;transition:left .8s cubic-bezier(.3,.9,.3,1),top .8s cubic-bezier(.3,.9,.3,1),width .8s cubic-bezier(.3,.9,.3,1),height .8s cubic-bezier(.3,.9,.3,1)}
+#card .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.4,.2,.2,1)}
+#card.flipped .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;display:grid;place-items:center;border:3px solid #fff;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+button.face{margin:0;padding:0;min-height:0;border-radius:20px;background:#fff}
+.fr{background:linear-gradient(145deg,#FCEEF2,#F4C9D5);color:var(--rose);font-size:2.6rem}
+.bk{transform:rotateY(180deg)}
+button.face:hover,button.face.bk:hover{transform:rotateY(180deg)}
+#pg{will-change:transform,opacity}
+.face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph{position:absolute;inset:0;display:grid;place-items:center;align-content:center;color:var(--rose);font-size:3.4rem;text-align:center}
+.ph small{font-size:.75rem;color:var(--mauve);display:block;font-weight:700}
+.face .n,.face .cnt{position:absolute;top:8px;left:10px;font-size:.8rem;font-weight:700;background:var(--cream);color:var(--plum);border-radius:999px;padding:2px 9px;z-index:2}
+.face .cnt{left:auto;right:10px}
+.face .tap{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:.7rem;color:var(--plum);background:rgba(255,249,246,.9);border-radius:999px;padding:2px 10px;font-weight:700;z-index:2}
+.swap{animation:swap .45s ease}
+@keyframes swap{from{opacity:.2;transform:rotateY(180deg) scale(.96)}to{opacity:1;transform:rotateY(180deg)}}
+#note{position:fixed;left:50%;transform:translateX(-50%);width:min(92vw,420px);opacity:0;transition:opacity .5s;text-align:center;z-index:31;pointer-events:none}
+#note.show{opacity:1;pointer-events:auto}
+#note .letter{min-height:90px;max-height:30vh;overflow:auto;margin-top:0;font-size:1.1rem}
+#mus{position:fixed;right:14px;top:calc(14px + env(safe-area-inset-top));z-index:40;width:48px;height:48px;padding:0;margin:0;font-size:1.3rem}
+#mus.off{background:#fff;color:var(--rose);border:1.5px solid var(--rose)}
+#conf{position:fixed;inset:0;pointer-events:none;z-index:5}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+:root{--glow:rgba(199,91,120,.28)}
+body{background:linear-gradient(135deg,#FDE9EF,#FFF9F6 40%,#F8D7E2 70%,#FFF4F1);background-size:300% 300%}
+#fx::before,#fx::after{content:"";position:absolute;width:60vmax;height:60vmax;border-radius:50%;opacity:.5;animation:blob 22s ease-in-out infinite alternate}
+#fx::before{background:radial-gradient(circle,#F7B8CB,transparent 65%);top:-20vmax;left:-15vmax}
+#fx::after{background:radial-gradient(circle,#FFE0C8,transparent 65%);bottom:-25vmax;right:-20vmax;animation-delay:-8s}
+@keyframes blob{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+.screen{background:linear-gradient(180deg,rgba(255,252,250,.95),rgba(255,246,248,.93));border:1px solid #F0C4D1;box-shadow:0 0 0 6px rgba(255,255,255,.55),0 18px 50px rgba(199,91,120,.22);position:relative}
+.screen::before,.screen::after{position:absolute;font-size:1.5rem;color:#E9A9BB;opacity:.85;pointer-events:none;content:"✿"}
+.screen::before{top:12px;left:18px}.screen::after{bottom:12px;right:18px}
+#name h1,#bday h2,#lock h2,#secret h2{font-family:"Dancing Script","Cormorant Garamond",cursive;font-weight:600}
+#name h1{font-size:clamp(2.2rem,9vw,3rem)}
+button{background:linear-gradient(135deg,#E07A97,#C75B78);box-shadow:0 8px 20px var(--glow)}
+input:focus,select:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 4px var(--glow)}
+.big{background:linear-gradient(90deg,#C75B78,#E9A06A,#C75B78);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.grid{gap:22px 16px;padding:8px 6px 14px}
+.tile{border:6px solid #fff;border-bottom-width:30px;border-radius:14px;overflow:visible;transform:rotate(var(--r,0deg));box-shadow:0 10px 24px rgba(81,45,59,.18);transition:transform .25s,box-shadow .25s;background:#F9DCE5}
+.tile:hover{transform:rotate(0) scale(1.04);box-shadow:0 14px 30px rgba(199,91,120,.35)}
+.tile img{border-radius:8px 8px 3px 3px}
+.tile .tap{bottom:-24px;background:none;color:var(--rose);font-size:.72rem}
+.tile .n{top:6px;left:6px;background:rgba(255,249,246,.92);color:var(--rose)}
+.tile::before{content:"";position:absolute;top:-14px;left:50%;width:46px;height:16px;transform:translateX(-50%) rotate(-3deg);background:rgba(247,184,203,.8);z-index:3;border-radius:2px}
+.dots i{transition:.3s}.dots i.on{width:24px;border-radius:6px;transform:none}
+.face{border:6px solid #fff}
+
+/* video screens */
+#vid{max-width:880px;padding:26px 14px}
+.vwrap{position:relative;margin:14px auto 0;width:100%;border:5px solid #fff;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 12px 30px rgba(81,45,59,.28);aspect-ratio:16/9;transition:opacity .4s}
+.vwrap[hidden]{display:none}
+.vwrap.fade{opacity:0}
+.vwrap video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
+#vNote{min-height:70px;text-align:center}
+#vBtns{display:flex;flex-direction:column;gap:2px}
+#vBtns button{width:100%}
+#gVid{width:100%}
+
+/* ---- pretty scrollbars everywhere ---- */
+html{scrollbar-width:thin;scrollbar-color:#E07A97 #FCEEF2}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#FCEEF2;border-radius:10px}
+::-webkit-scrollbar-thumb{background:linear-gradient(#F4A9BE,#C75B78);border-radius:10px;border:2px solid #FFF4F6}
+.letter{scrollbar-width:thin;scrollbar-color:#E07A97 rgba(232,183,196,.3)}
+.letter::-webkit-scrollbar{width:8px}
+.letter::-webkit-scrollbar-track{background:rgba(232,183,196,.3)}
+
+/* ---- gift wrapper ---- */
+#giftWrap[hidden],#lbox[hidden]{display:none!important}
+#giftWrap{margin:26px 0 4px;text-align:center}
+button.gift{position:relative;display:block;width:200px;height:200px;margin:0 auto;padding:0;min-height:0;background:none;box-shadow:none;border-radius:0;animation:bob 2.6s ease-in-out infinite}
+button.gift:hover{transform:none}
+@keyframes bob{50%{transform:translateY(-9px)}}
+.gift .glow{position:absolute;left:50%;top:48%;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,#fff6d6,rgba(255,214,150,.75) 40%,transparent 70%);transform:translate(-50%,-50%);opacity:0;pointer-events:none;z-index:5}
+.gift .gb{position:absolute;left:14px;right:14px;bottom:0;height:112px;z-index:2;border-radius:6px 6px 16px 16px;background:linear-gradient(160deg,#EE8BA6,#C75B78 60%,#B24A68);box-shadow:inset 0 -10px 18px rgba(81,45,59,.18),0 16px 24px rgba(199,91,120,.38)}
+.gift .gb::before,.gift .gl::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:30px;transform:translateX(-50%);background:linear-gradient(90deg,#E9B66E,#FBE3A8 50%,#E9B66E)}
+.gift .gl{position:absolute;left:4px;right:4px;top:62px;height:54px;z-index:4;border-radius:10px;background:linear-gradient(160deg,#F59DB5,#D96B88);box-shadow:0 8px 14px rgba(81,45,59,.22);transform-origin:20% 100%}
+.gift .bow{position:absolute;left:50%;top:-30px;width:0;height:0}
+.gift .bow i{position:absolute;top:0;width:48px;height:34px;border:9px solid #F0C27B;border-radius:50% 50% 50% 6px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
+.gift .bow i:first-child{left:-52px;transform:rotate(-14deg)}
+.gift .bow i:nth-child(2){left:4px;transform:scaleX(-1) rotate(-14deg)}
+.gift .bow b{position:absolute;left:-12px;top:12px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF1C9,#E6AE5E)}
+.gift .paper{position:absolute;left:44px;right:44px;top:74px;height:112px;z-index:1;display:grid;place-items:center;background:#fff;border:1px solid #EBCBD3;border-radius:6px;box-shadow:0 4px 10px rgba(81,45,59,.15);color:var(--rose);font-size:1.6rem}
+.gift .paper em{font-style:normal}
+.gift.shake{animation:gshake .7s ease-in-out}
+@keyframes gshake{0%,100%{transform:rotate(0)}15%{transform:rotate(-6deg) scale(1.04)}30%{transform:rotate(6deg) scale(1.06)}45%{transform:rotate(-5deg) scale(1.06)}60%{transform:rotate(5deg) scale(1.08)}80%{transform:rotate(-2deg) scale(1.08)}}
+.gift.open{animation:none;transform:scale(1.08)}
+.gift.open .glow{animation:gglow 1.5s ease-out forwards}
+@keyframes gglow{0%{opacity:.95;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(16)}}
+.gift.open .gl{animation:lidfly 1s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes lidfly{0%{transform:translateY(0) rotate(0)}35%{transform:translateY(-70px) rotate(-10deg)}100%{transform:translate(-100px,-230px) rotate(-40deg);opacity:0}}
+.gift.open .paper{animation:paperup 1.1s .25s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes paperup{to{transform:translateY(-105px) rotate(-3deg) scale(1.1)}}
+.gift.open .gb{animation:bodypop .5s ease-out}
+@keyframes bodypop{40%{transform:scale(1.06,.93)}}
+.ghint{font-size:.9rem;font-weight:700;color:var(--rose);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
+.bp{position:fixed;z-index:20;pointer-events:none;animation:bp 1.2s ease-out forwards}
+@keyframes bp{from{transform:translate(-50%,-50%) scale(.3);opacity:1}to{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.1) rotate(200deg);opacity:0}}
+
+/* ---- letter paper with heart scroll rail ---- */
+#lbox{animation:lrise .9s cubic-bezier(.2,.8,.3,1) both}
+@keyframes lrise{from{opacity:0;transform:translateY(50px) scale(.7)}to{opacity:1;transform:none}}
+.lframe{position:relative;margin-top:10px}
+.lframe::before,.lframe::after{content:"";position:absolute;left:2px;right:2px;height:30px;z-index:2;pointer-events:none;opacity:0;transition:opacity .3s}
+.lframe::before{top:2px;border-radius:6px 18px 0 0;background:linear-gradient(#fff,rgba(255,255,255,0))}
+.lframe::after{bottom:2px;border-radius:0 0 18px 6px;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.lframe.st::before{opacity:1}
+.lframe:not(.end)::after{opacity:1}
+#letter.scrollpaper{margin-top:0;max-height:min(54vh,430px);overflow-y:auto;scrollbar-width:none;padding:24px 34px 30px 24px;font-size:1.22rem;line-height:1.75;border-width:2px;box-shadow:0 10px 28px rgba(199,91,120,.22),inset 0 0 0 4px #fff}
+#letter.scrollpaper::-webkit-scrollbar{display:none}
+.rail{position:absolute;right:11px;top:22px;bottom:22px;width:6px;border-radius:6px;background:rgba(232,183,196,.4);z-index:3;touch-action:none;cursor:pointer;transition:opacity .3s}
+.rail::before{content:"";position:absolute;top:0;bottom:0;left:-14px;right:-14px}
+.rail .fill{position:absolute;left:0;top:0;width:100%;height:0;border-radius:6px;background:linear-gradient(#F4A9BE,#C75B78)}
+.rail .rh{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);font-size:20px;line-height:1;color:var(--rose);filter:drop-shadow(0 0 3px #fff) drop-shadow(0 2px 4px rgba(199,91,120,.45))}
+.sdown{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:3;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#E07A97,#C75B78);padding:5px 14px;border-radius:999px;box-shadow:0 6px 14px var(--glow);animation:nudge 1.4s ease-in-out infinite;transition:opacity .3s;pointer-events:none}
+.lframe.end .sdown{opacity:0;animation:none}
+@keyframes nudge{50%{transform:translate(-50%,4px)}}
+
+/* ---- not mommy screen ---- */
+.nopeico{font-size:4.2rem;display:inline-block;animation:shake .5s}
+#nope h1{font-family:Nunito,system-ui,sans-serif;font-weight:800;color:#B03A5B;font-size:clamp(1.8rem,8vw,2.6rem);letter-spacing:.01em;margin-top:6px}
+</style>
+</head>
+<body>
+<div id="fx" aria-hidden="true"></div>
+<canvas id="conf" aria-hidden="true"></canvas>
+<main>
+
+<section class="screen" id="name">
+  <div class="eyebrow">♡ A little surprise ♡</div>
+  <h1>A little surprise is waiting for you</h1>
+  <p>A special page, just for you.</p>
+  <label for="nm" class="eyebrow" style="display:block;margin-top:18px">Your full name</label>
+  <input id="nm" autocomplete="off" placeholder="Enter your full name">
+  <div class="msg" id="nmMsg" role="alert"></div>
+  <button id="nmGo">Continue</button>
+  <div class="deco" aria-hidden="true">✿ ♡ ✿</div>
+</section>
+
+<section class="screen" id="decoy" hidden>
+  <div class="eyebrow" id="dStep"></div>
+  <h2 id="dQ"></h2>
+  <input id="dIn" autocomplete="off">
+  <p id="dHint"></p>
+  <button id="dGo">Next</button>
+</section>
+
+<section class="screen" id="decoyEnd" hidden>
+  <h2>Thank you for stopping by ♡</h2>
+  <p>This little surprise is meant for someone else, but we’re glad you played along. Take a gentle breath and try the name screen again.</p>
+  <button id="dBack">Back to the name screen</button>
+</section>
+
+<section class="screen" id="bday" hidden>
+  <div class="eyebrow">A question for you</div>
+  <h2>When is your birthday?</h2>
+  <div class="row" role="group" aria-label="Birthday">
+    <select id="bd" aria-label="Day"></select>
+    <select id="bm" aria-label="Month"></select>
+    <select id="by" aria-label="Year"></select>
+  </div>
+  <div class="msg" id="bMsg" role="alert"></div>
+  <button id="bGo">Continue</button>
+  <p id="bOwner" style="font-size:.75rem;opacity:.7" hidden>[OWNER: set the birthday in CONFIG.birthday — until then, any date is accepted]</p>
+</section>
+
+<section class="screen" id="lock" hidden>
+  <div class="lock" aria-hidden="true">🔒</div>
+  <div class="eyebrow">One last little key…</div>
+  <h2>A little locked surprise</h2>
+  <label for="pass" style="position:absolute;left:-9999px">Six-digit passcode</label>
+  <input id="pass" maxlength="6" inputmode="numeric" autocomplete="off" placeholder="••••••">
+  <div class="msg" id="pMsg" role="alert"></div>
+  <button id="pGo">Unlock</button>
+</section>
+
+<section class="screen" id="reveal" hidden>
+  <div class="deco" aria-hidden="true" style="margin:0 0 8px">✿ ♡ ✿</div>
+  <h1 class="big">HAPPY BIRTHDAY MOMMMY</h1>
+  <p>Today is all about you. I made this little corner of the internet with all my love.</p>
+  <div id="giftWrap">
+    <button class="gift" id="gift" aria-label="Open your birthday gift">
+      <span class="glow"></span>
+      <span class="paper"><em>♡</em></span>
+      <span class="gb"></span>
+      <span class="gl"><span class="bow"><i></i><i></i><b></b></span></span>
+    </button>
+    <p class="ghint">Tap the gift to open your letter ♡</p>
+  </div>
+  <div id="lbox" hidden>
+    <div class="eyebrow" style="margin-top:6px">A letter for you ♡</div>
+    <div class="lframe" id="lframe">
+      <div class="letter scrollpaper" id="letter" tabindex="0" aria-label="Your birthday letter"></div>
+      <div class="rail" id="rail" aria-hidden="true"><span class="fill" id="railFill"></span><span class="rh" id="railH">♥</span></div>
+      <div class="sdown" aria-hidden="true">scroll ♡</div>
+    </div>
+  </div>
+  <button id="rNext" hidden>Next</button>
+</section>
+
+<section class="screen" id="secret" hidden>
+  <div class="deco" aria-hidden="true" style="margin:0 0 8px">✿ ♡ ✿</div>
+  <div class="eyebrow">A hidden surprise</div>
+  <h2>A little update for you</h2>
+  <div class="letter" id="upd"></div>
+  <div id="updList"></div>
+  <button id="sBack">Back</button>
+</section>
+
+<section class="screen" id="g" hidden>
+  <div class="eyebrow">Our little memories</div>
+  <div id="pg">
+  <h2 id="gT"></h2>
+  <div class="grid" id="grid"></div>
+  <p style="font-size:.85rem">Tap a photo to open its note</p>
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <p id="gEnd" style="font-style:italic" hidden>That’s all for now — but there’s so much more to come. I love you ♡</p>
+  </div>
+  <div class="nav"><button class="ghost" id="gPrev">Previous</button><button id="gNext">Next</button></div>
+  <button id="gVid" hidden>Continue to next video ♡</button>
+</section>
+
+<section class="screen" id="nope" hidden>
+  <div class="nopeico" aria-hidden="true">🚫</div>
+  <h1 id="nopeTitle">YOU ARE NOT MOMMY!</h1>
+  <p>This little surprise belongs to one special person only.</p>
+  <button id="nopeRestart">Restart</button>
+</section>
+
+<section class="screen" id="vid" hidden>
+  <div class="deco" aria-hidden="true" style="margin:0 0 8px">✿ ♡ ✿</div>
+  <div class="eyebrow" id="vEye"></div>
+  <div class="vwrap" id="vWrap"><video id="vp" playsinline controls preload="auto"></video></div>
+  <div class="letter" id="vNote"></div>
+  <div id="vBtns">
+    <button id="vAgain" hidden>Watch again ♡</button>
+    <button class="ghost" id="vBack">Back to memories</button>
+  </div>
+</section>
+</main>
+
+<div id="ov" hidden>
+  <div id="card"><div class="in">
+    <div class="face fr" id="fr"></div>
+    <button class="face bk" id="ph"></button>
+  </div></div>
+  <div id="note"><div class="letter" id="noteT" title="Tap to show the full note"></div><button id="dlgX">Close</button></div>
+</div>
+<button id="mus" class="off" aria-label="Play or mute music" aria-pressed="false">♪</button>
+
+<script>
+/* ===== OWNER SETTINGS — edit here =====  (TIP: search this file for the word LASTVID to find where your gift vlog goes) */
+const CONFIG={
+  name:"Khriztina Cassandra R. Cabral",
+  birthday:{day:"8",month:"11",year:"2005"},   // e.g. {day:"14",month:"2",year:"2000"} — left blank on purpose
+  passcode:"021408",                    // kept as text to preserve the leading zero
+  letter:`Happy Birthday to the most beautiful, caring, and incredible person in my life! Today is all about celebrating you and the most beautiful girl I want! I am so grateful for every moment we share, from our biggest adventures to the quietest days. You bring so much love, laugh, and happiness into my world just by being yourself. Thank you for your kindness, your endless support, and for making my life so much brighter. I hope this year brings you all the joy, love, and success you deserve. I can't wait to celebrate you today and stand by your side for many more birthdays to come.
+
+I love you more than words can say. Happy Birthday!
+
+With all my love, I will always love you at my fullest mommy and iI will be a man for you and I will be better enough for you to treat you right and treated as you wanted mommy I will promise to you na ikaw, ikaw lang yung mamahalin ko at ikaw ikaw lang yung babae sa buhay ko i will always love you at the bottom of my heart mommy, I will be study hard for our future and be more understanding I want you in my life mommy, I don't want to make you disappointed again, I don't want to make you sad again and I don't want to make you cry again because of my attitude because who i am, I will change my self for mommy, just you wait mommy I will take care of you and I will love you
+
+and Happy Birthday TO MY MOST BEAUTIFUL GIRL HAPPY 21ST BIRTHDAY MOMMY MORE BIRTHDAY TO COME I LOVE YOU SO MUCH MOMMY I NEVER FELT MY LOVE FOR YOU BECOME LESS I LOVE YOU SO MUCHHHHHHHH
+
+HAPPPPPPPPPYYYYYYY BIRTHDAY MY CASSY MY MOMMY MY EVERYTHING!!!!!!!!!! TWENTY ONE KANAAAAAAAAAAAAAAAAAA`,
+  photos:[["photos/01-2.jpg", "photos/01-3.jpg", "photos/01-4.jpg", "photos/01-5.jpg", "photos/01-6.jpg", "photos/01-7.jpg", "photos/01-8.jpg", "photos/01-1.jpg"], ["photos/02-1.jpg", "photos/02-2.jpg", "photos/02-3.jpg", "photos/02-4.jpg", "photos/02-5.jpg", "photos/02-6.jpg", "photos/02-7.jpg", "photos/02-8.jpg", "photos/02-9.jpg", "photos/02-10.jpg"], ["photos/03-1.jpg", "photos/03-2.jpg", "photos/03-3.jpg", "photos/03-4.jpg", "photos/03-5.jpg", "photos/03-6.jpg", "photos/03-7.jpg", "photos/03-8.jpg", "photos/03-9.jpg", "photos/03-10.jpg"], ["photos/04-1.jpg", "photos/04-2.jpg", "photos/04-3.jpg", "photos/04-4.jpg", "photos/04-5.jpg", "photos/04-6.jpg"], ["photos/05-1.jpg", "photos/05-2.jpg", "photos/05-3.jpg", "photos/05-4.jpg", "photos/05-5.jpg", "photos/05-6.jpg", "photos/05-7.jpg", "photos/05-8.jpg", "photos/05-9.jpg", "photos/05-10.jpg"], ["photos/06-1.jpg", "photos/06-2.jpg", "photos/06-3.jpg", "photos/06-4.jpg"], ["photos/07-1.jpg", "photos/07-2.jpg", "photos/07-3.jpg", "photos/07-4.jpg", "photos/07-5.jpg", "photos/07-6.jpg", "photos/07-7.jpg", "photos/07-8.jpg", "photos/07-9.jpg"], ["photos/08-1.jpg", "photos/08-2.jpg", "photos/08-3.jpg", "photos/08-4.jpg", "photos/08-5.jpg", "photos/08-6.jpg", "photos/08-7.jpg", "photos/08-8.jpg", "photos/08-9.jpg", "photos/08-10.jpg"], ["photos/09-1.jpg", "photos/09-2.jpg", "photos/09-3.jpg", "photos/09-4.jpg", "photos/09-5.jpg"], ["photos/10-1.jpg", "photos/10-2.jpg", "photos/10-3.jpg", "photos/10-4.jpg", "photos/10-5.jpg", "photos/10-6.jpg", "photos/10-7.jpg", "photos/10-8.jpg"], ["photos/11-1.jpg", "photos/11-2.jpg", "photos/11-3.jpg", "photos/11-4.jpg", "photos/11-5.jpg", "photos/11-6.jpg", "photos/11-7.jpg", "photos/11-8.jpg", "photos/11-9.jpg", "photos/11-10.jpg"], ["photos/12-1.jpg", "photos/12-2.jpg", "photos/12-3.jpg", "photos/12-4.jpg", "photos/12-5.jpg", "photos/12-6.jpg", "photos/12-7.jpg", "photos/12-8.jpg", "photos/12-9.jpg"], ["photos/13-1.jpg", "photos/13-2.jpg", "photos/13-3.jpg", "photos/13-4.jpg"], ["photos/14-1.jpg", "photos/14-2.jpg", "photos/14-3.jpg", "photos/14-4.jpg", "photos/14-5.jpg", "photos/14-6.jpg", "photos/14-7.jpg", "photos/14-8.jpg", "photos/14-9.jpg", "photos/14-10.jpg"], ["photos/15-1.jpg", "photos/15-2.jpg", "photos/15-3.jpg", "photos/15-4.jpg", "photos/15-5.jpg", "photos/15-6.jpg", "photos/15-7.jpg", "photos/15-8.jpg", "photos/15-9.jpg"], ["photos/16-1.jpg", "photos/16-2.jpg", "photos/16-3.jpg", "photos/16-4.jpg", "photos/16-5.jpg", "photos/16-6.jpg"], ["photos/17-1.jpg", "photos/17-2.jpg", "photos/17-3.jpg", "photos/17-4.jpg", "photos/17-5.jpg", "photos/17-6.jpg", "photos/17-7.jpg", "photos/17-8.jpg", "photos/17-9.jpg", "photos/17-10.jpg"], ["photos/18-1.jpg", "photos/18-2.jpg", "photos/18-3.jpg", "photos/18-4.jpg", "photos/18-5.jpg", "photos/18-6.jpg", "photos/18-7.jpg", "photos/18-8.jpg"], ["photos/19-1.jpg", "photos/19-2.jpg", "photos/19-3.jpg", "photos/19-4.jpg", "photos/19-5.jpg", "photos/19-6.jpg", "photos/19-7.jpg", "photos/19-8.jpg", "photos/19-9.jpg", "photos/19-10.jpg"], ["photos/20-1.jpg", "photos/20-2.jpg", "photos/20-3.jpg", "photos/20-4.jpg", "photos/20-5.jpg", "photos/20-6.jpg", "photos/20-7.jpg", "photos/20-8.jpg"], ["photos/21-1.jpg", "photos/21-2.jpg", "photos/21-3.jpg", "photos/21-4.jpg", "photos/21-5.jpg", "photos/21-6.jpg", "photos/21-7.jpg"], ["photos/22-1.jpg", "photos/22-2.jpg", "photos/22-3.jpg", "photos/22-4.jpg", "photos/22-5.jpg", "photos/22-6.jpg", "photos/22-7.jpg", "photos/22-8.jpg", "photos/22-9.jpg", "photos/22-10.jpg"], ["photos/23-1.jpg", "photos/23-2.jpg", "photos/23-3.jpg", "photos/23-4.jpg"], ["photos/24-1.jpg", "photos/24-2.jpg", "photos/24-3.jpg", "photos/24-4.jpg", "photos/24-5.jpg", "photos/24-6.jpg"], ["photos/25-1.jpg", "photos/25-2.jpg", "photos/25-3.jpg", "photos/25-4.jpg", "photos/25-5.jpg", "photos/25-6.jpg", "photos/25-7.jpg", "photos/25-8.jpg", "photos/25-9.jpg", "photos/25-10.jpg"], ["photos/26-1.jpg", "photos/26-2.jpg", "photos/26-3.jpg", "photos/26-4.jpg", "photos/26-5.jpg", "photos/26-6.jpg", "photos/26-7.jpg", "photos/26-8.jpg", "photos/26-9.jpg", "photos/26-10.jpg"], ["photos/27-1.jpg", "photos/27-2.jpg", "photos/27-3.jpg", "photos/27-4.jpg", "photos/27-5.jpg", "photos/27-6.jpg", "photos/27-7.jpg", "photos/27-8.jpg", "photos/27-9.jpg"], ["photos/28-1.jpg", "photos/28-2.jpg", "photos/28-3.jpg", "photos/28-4.jpg", "photos/28-5.jpg", "photos/28-6.jpg", "photos/28-7.jpg", "photos/28-8.jpg", "photos/28-9.jpg", "photos/28-10.jpg"], ["photos/29-1.jpg", "photos/29-2.jpg", "photos/29-3.jpg"], ["photos/30-1.jpg", "photos/30-2.jpg", "photos/30-3.jpg", "photos/30-4.jpg", "photos/30-5.jpg", "photos/30-6.jpg"], ["photos/31-1.jpg", "photos/31-2.jpg", "photos/31-3.jpg", "photos/31-4.jpg", "photos/31-5.jpg", "photos/31-6.jpg", "photos/31-7.jpg", "photos/31-8.jpg", "photos/31-9.jpg", "photos/31-10.jpg"], ["photos/32-1.jpg", "photos/32-2.jpg", "photos/32-3.jpg", "photos/32-4.jpg", "photos/32-5.jpg", "photos/32-6.jpg"], ["photos/33-1.jpg", "photos/33-2.jpg", "photos/33-3.jpg", "photos/33-4.jpg", "photos/33-5.jpg"], ["photos/34-1.jpg", "photos/34-2.jpg", "photos/34-3.jpg", "photos/34-4.jpg", "photos/34-5.jpg", "photos/34-6.jpg", "photos/34-7.jpg", "photos/34-8.jpg", "photos/34-9.jpg", "photos/34-10.jpg"], ["photos/35-1.jpg", "photos/35-2.jpg", "photos/35-3.jpg", "photos/35-4.jpg", "photos/35-5.jpg"], ["photos/36-1.jpg", "photos/36-2.jpg", "photos/36-3.jpg", "photos/36-4.jpg", "photos/36-5.jpg"], ["photos/37-1.jpg", "photos/37-2.jpg", "photos/37-3.jpg", "photos/37-4.jpg", "photos/37-5.jpg", "photos/37-6.jpg", "photos/37-7.jpg", "photos/37-8.jpg", "photos/37-9.jpg", "photos/37-10.jpg"], ["photos/38-1.jpg", "photos/38-2.jpg", "photos/38-3.jpg", "photos/38-4.jpg"], ["photos/39-1.jpg", "photos/39-2.jpg", "photos/39-3.jpg"], ["photos/40-1.jpg", "photos/40-2.jpg", "photos/40-3.jpg", "photos/40-4.jpg", "photos/40-5.jpg", "photos/40-6.jpg", "photos/40-7.jpg", "photos/40-8.jpg", "photos/40-9.jpg", "photos/40-10.jpg"], ["photos/41-1.jpg", "photos/41-2.jpg", "photos/41-3.jpg", "photos/41-4.jpg", "photos/41-5.jpg", "photos/41-6.jpg"], ["photos/42-1.jpg", "photos/42-2.jpg", "photos/42-3.jpg"], ["photos/43-1.jpg", "photos/43-2.jpg", "photos/43-3.jpg", "photos/43-4.jpg", "photos/43-5.jpg", "photos/43-6.jpg", "photos/43-7.jpg", "photos/43-8.jpg", "photos/43-9.jpg", "photos/43-10.jpg"], ["photos/44-1.jpg", "photos/44-2.jpg", "photos/44-3.jpg"], ["photos/45-1.jpg", "photos/45-2.jpg"], ["photos/46-1.jpg", "photos/46-2.jpg", "photos/46-3.jpg", "photos/46-4.jpg", "photos/46-5.jpg", "photos/46-6.jpg", "photos/46-7.jpg", "photos/46-8.jpg", "photos/46-9.jpg", "photos/46-10.jpg"], ["photos/47-1.jpg", "photos/47-2.jpg", "photos/47-3.jpg"], ["photos/48-1.jpg", "photos/48-2.jpg"], ["photos/49-1.jpg", "photos/49-2.jpg", "photos/49-3.jpg", "photos/49-4.jpg", "photos/49-5.jpg", "photos/49-6.jpg", "photos/49-7.jpg", "photos/49-8.jpg", "photos/49-9.jpg", "photos/49-10.jpg"], ["photos/50-1.jpg", "photos/50-2.jpg"], ["photos/51-1.jpg", "photos/51-2.jpg", "photos/51-3.jpg", "photos/51-4.jpg", "photos/51-5.jpg", "photos/51-6.jpg"], ["photos/52-1.jpg", "photos/52-2.jpg"], ["photos/53-1.jpg", "photos/53-2.jpg"], ["photos/54-1.jpg", "photos/54-2.jpg", "photos/54-3.jpg", "photos/54-4.jpg", "photos/54-5.jpg"], ["photos/55-1.jpg", "photos/55-2.jpg", "photos/55-3.jpg", "photos/55-4.jpg", "photos/55-5.jpg", "photos/55-6.jpg"], ["photos/56-1.jpg", "photos/56-2.jpg"], ["photos/57-1.jpg", "photos/57-2.jpg", "photos/57-3.jpg", "photos/57-4.jpg", "photos/57-5.jpg", "photos/57-6.jpg", "photos/57-7.jpg", "photos/57-8.jpg", "photos/57-9.jpg", "photos/57-10.jpg"], ["photos/58-1.jpg", "photos/58-2.jpg"], ["photos/59-1.jpg", "photos/59-2.jpg"], ["photos/60-1.jpg", "photos/60-2.jpg", "photos/60-3.jpg", "photos/60-4.jpg", "photos/60-5.jpg", "photos/60-6.jpg", "photos/60-7.jpg", "photos/60-8.jpg", "photos/60-9.jpg", "photos/60-10.jpg"], ["photos/61-1.jpg", "photos/61-2.jpg"], ["photos/62-1.jpg", "photos/62-2.jpg", "photos/62-3.jpg", "photos/62-4.jpg"], ["photos/63-1.jpg", "photos/63-2.jpg", "photos/63-3.jpg", "photos/63-4.jpg", "photos/63-5.jpg", "photos/63-6.jpg"], ["photos/64-1.jpg", "photos/64-2.jpg", "photos/64-3.jpg", "photos/64-4.jpg", "photos/64-5.jpg", "photos/64-6.jpg", "photos/64-7.jpg", "photos/64-8.jpg"]],            // per slot: one URL, or a list ["a.jpg","b.jpg"] — tapping the photo cycles them
+  song:"",                              // MAIN song file, e.g. "songs/main.mp3" (blank = soft built-in tune)
+  photoSongs:Array(64).fill(""),        // song per photo, e.g. photoSongs[0]="songs/photo1.mp3" (blank = main song keeps playing)
+  covers:[],                            // optional: covers[i] = which photo (0,1,2…) is the cover of number i+1 (default: first)
+  secretCode:"000000",                  // typed on the padlock screen → opens the hidden update page
+  updateText:"[PUT YOUR UPDATE / SURPRISE MESSAGE HERE]",
+  updates:[{date:"[DATE]",title:"[UPDATE TITLE]",text:"[WHAT’S NEW — WRITE IT HERE]"}],
+  alts:Array.from({length:64},(_,i)=>`Our memory number ${i+1}`),
+  notes:[["i love seeing our past when we graduated highschool and senior highschool, and i wanted to graduate with you together I'm so in love with you gorgeous mommy I can't live without you in my future."], ["this is the day na nag national museum arts po tayo I'm so happy with you po and your dress it's so sexy looking when you're wearing it.", "this is the day na pinuntahan mo po ako kasi i have sinat po and you said matutulog po ikaw then i said na matutulog din po ako around 11 po yun and i forgot na pupunta po ikaw pero po andun kana po samen po nag bubukas nang gate you look so cute when your opening our gate po hehe", "this part po nag eat po us nang lugaw and sinama po kita sa picture po i said mag post po ikaw", "and you look so cutttiepatottieeeee mommy hehe i want to bite you that time and every time i see your picture po", "i dont remember this part po pero i know naka pasok ako sa athletic center without pe uniform po i just remember you put lip tint on me that time po or lipbalm napa sobra po you look so gorgeous here po", "when i see your picture po naalala ko na why po tayo andito cause need mo po mag pa picture and need i video yung laban po jan for your attendance po it suppose to he us there po na magkasama po sa pic pero di ko gusto yung look ko po jan eh hehehe", "and this time po we bought your favorite tinapay at sm fairview which is garlic bread before po tayo umuwi po you look so pretty and funny when you do that on your pretty face it look like your happy cause i bought your favorite bread po heheh", "I'm so inlove with your pics when your doing a post of rowr i love you mommy", "this is my favorite photo of you mommy you look so free and so sexy po mommy and i also remember di po ako nalangoy jan cause natatakot ako kasi may mga sea plants po jan na i feel like a jellyfish po", "this part po we're testing the cctv camera and i have an idea to take a picture of you while nag popost po ikaw na naka peace sign po"], ["I love this part keep happening on us again and again because magkasama tayo buong araw we're having a vacation and natutulog tayo nang sabay, I really want to come there po it doesn mean na ayaw ko pong kasama po kayo mag christmas until i accept ate..... so yun po i really want to enjoy Christmas with you and our family sila daddy sila mama i want that po and i want na mag pasko sainyo and some next Christmas dito ka naman mag pasko I just can't accept it eh I'm really sorry to make you cry po", "I miss na nasa dagat po tayo na nasa ilog dagat na hindi ganun kalalim and i remember nangitim po ako jan and ikaw parang wala lang po maputi padin po", "you look so cute and sexy on your swim suit mommy ko and I remember we're trying a floater po.", "every time i look at you, you look so gorgeous and so sexy po mommy ko", "we're taking alot of pictures na parang wala nang bukas im so happy with you while we\u2019re taking a vacation na sinama ako ni daddy po hehe", "every time you post you still look so gorgeous", "every time you make a kiss face i want to kiss you din po hehe", "Wala na po akong ma post po dito po eh but your the one who make the photo so good po mommy", "i love this photo po", "My favorite po hehe"], ["I want to remake what we do at there po i want to do anything po with you po like collecting rocks, drawing our names, and also make our memories there po kahit saglitan lang po i really want to come there and enjoy with everyone po.", "At this part po nasa ilog napo tayo yung may bato bato po and we\u2019re in the place na umaagos po yung tubig po or sa isa po ata yun and i remember uming was found there po and also you told me na wag muna mag babasa nang buhok po", "The picture so good with you mommy you look so beautiful ganito ba talaga ka ganda kapag mag 21 na?", "Everytime you make a silly face it suits you so well di panger or what it look so cuttieeeee", "This photo po i remember na gusto ko mag pic tayo sa tubig po ehh", "And this part po is natatakot po ako kasi dahil sa sea plant po na umaano sa paa paa po and also i remember na iniingatan mo yung buhok mo or di po ikaww matumba kasi po lumalakas napo yung alon po mommy, and also we took alot of picture po that time po and nag tampo po ako kasi umalis po ikaw nung mag iisleep napo you didnt see the beautiful moon po"], ["When looking your solo pics i feel my heart pounding of joy po like remembering kung pano po kita pinicturan po jan kasi we're laughing because nakikita yung face and the other solo pics mo po na sinesend it's so pretty po mommy hehe.", "I forgot her name po but its a gift na hinahanap hanap ko papo na alam ko po na magugustuhan mo po mommy", "you look so sexy po when doing that face po im so inlove with you po", "And everytime you wear your eyeglasses it makes you so prettyyyyyyyyyyyy", "and this part po eto po yung pinapapili mo po ako or imamayday po mommy", "i love your pics when your not ready tapos sasabihin mo po na panget eh kahit hindi naman i felt sad every time na dinedelete mo po yun cause i will treasure it your pictures po", "and your post so calm i want to bite you po", "and this one po we took alot of pictures po when pauwi na tayo mommy", "i forgot why you we\u2019re laughing at that part po mommy.", "And this part po mommy nahihiya ka kasi ganito lang suot naten i remember pumunta po tayo jan sa cubao para mag paturok po kayo?"], ["this part po mommy when I'm looking our picture po mommy natatawa po ako eh di naman po ako natatawa dahil satin po natatawa po ako sa sarili ko po kasi muka akong nag momotor din jan na tayong dalawa lang magkasama like you book some angkas tapos ako yun ganun but even I'm laughing at my self I'm still kinikilig every time i look at our pictures."], ["this time po nasa star city po usi bou my tshirt and short to have some different shirts cause paulit ulit nalang mga damit ko po, at this time po when we're riding on rides I'm so happy kasi po i didn't expect na makakapunta tayo dito kasi malayo thanks to lrt po naka punta po tayo nang mabilisan dun and i also remember na naiinis po ako sa tricycle to the point na nag tatanong kapo tapos nasigawan po kita I'm sorry po mommy na yung galit ko po napunta po sayo and i also remember na we forgot to ride the ferris wheel nung pauwi na tayo na naalala lang naten is nasa labas na tayo and the ferris wheel loook so pretty po and also i really want to do that pero hindi napo sa star city instead sa enchanted kingdom naman po tayong dalawa"], ["this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this part po I'm so shy kasi nag pipicture tayo dun samay eo because po sa contact lense po we're taking alot of picture then we need to delete the pictures po kasi po nahihiya po tayo like after mapakita dun sa eo dedelete napo then nakabili tayo nang tig isang contact lense suddenly di naten nakuha yung gusto nateng color or ako lang ata di naka kuha nang gusto kong color tapos po sobrang hirap pang isuot yung contact lense po", "this photo po eto po yung birthday ni pio and i bring hopea to celebrate pio\u2019s birthday po you two look so cuttieeee"], ["dito po you look so pretty po mommy, you look so blooming and so pretty po mommy and i remember every time po na uwian nyo napo pawis na pawis po ikaw tapos after nang uwian nyo po tumatakbo po ikaw papunta sa canteen po, and i remember na pinupunasan ko po likod mo po"], ["At this part po mommy dito po yung gusto mong place kapag nakain po tayo palabok and carbonara po your smile look so beautful mommy And everytime we take a pic po ginagaya po kita WHAHAHAHAHAHA", "And this time po nag eat po tayo nang mcdo po and i remember nag palagay po ako nang mga maliliit na ipit namay kulay kasi i want to be same as you po", "You look so gorgeous mommy im so lucky to have you", "I dont want to lose you mommy i really love you", "I want you in our future i hope i can be better enough for you", "You look so cuttieeeee hereee mommy and im eating my favorite order po", "I always wants this mommy im sorry for making alot of mistakes", "I always love you mommy"], ["I LOVE YOUR SOLO PICS THESE PICTURES IS ONE OF MY FAVORITES PO MOMMY YOU LOOK SO PRETTY YOU LOOK SO GORGEOUS YOU LOOK SO CUTTEEE GOSH I LOVE YOU EVERY PICTURE OF YOURS IM SO LUCKY TO HAVE YOU I WANT YOU IN MY LIFE FOREVER YOUR SO SEXY MOMMY KO."], ["I LOVE THESE PICTURES MOMMY I REALLY LOVE IT IT WAS MY FAVORITE PICTURES PO I LOVE YOU SOMUCH MY MAGANDANG MOMMY YOU LOOK SO CUTEEEEEE AT EVERY PICTURE YOU LOOK SO BEAUTIFUL MOMMY"], ["I didnt expect na i have some flowers po i want to eat the lolly pop but until now i didnt ate it po hehe im so thankful to have you mommy and also i planning some other combination of flowers to give you to make it more prettier mommy ko and muntikan napo di ko po mabili yung flowers po kasi po late po ako nang gising po buti nagising pako onun that time po hehe im so happy to buy you some flowers po"], ["I REALLY LOVE YOUR PICS when your not ready po mommy i will treasure that po mommy and those pics po and it starts with your new shoes po and i want to take a pic of you po at first nahihiya po ikaw but napilit po kita mommy and sa part po nang 6 and 7 po that picture po is so good for you po it looks so beautiful po mommy and the red strawberry hat wala napo dun sa kkv po it look so good on you mommy bagay na bagay po mommy sayo sobrang ganda po"], ["I love every your every smile and laugh mommy and i love pano po ikaw manamit and i love how you make you face look so cute po mommy i love every pics and posts you do mommy your always so beautiful mommy ko"], ["at this part po i feel that we\u2019re cool at this pose WHAHAHAHAHAHH like i dont know but it looks like we\u2019re having a pose on a special picture for something po mommy ko"], ["I know you really love that hat po im sorry po if i cannot buy your favorite hat po i know you really want it and i really want to buy it for you but i dont have money that day po and also that hat that strawberry hat of yours it suit it well it suit it too good for you mommy super bagay and super cuttieeeee i love you pose\u2019s mommy it makes me smiley po hehe"], ["and this is the part that your favorite photo po mommy and naiinis ka po saken cause i dont want to remove my headphones po mommy yes po di po bagay im so sorry but still maganda din naman po kasi you were there po mommy andun po ikaw momy ehh you will make the picture so perfect po mommy"], ["You look so gorgeous mommy with your pose with your smile, i love the way you smile po and i love the way you laugh mommy, those picture those smiles it feels so good while staring it too long it feels so comfortable when thinking about you I\u2019m so happy when im thinking about you mommy im so happy to have you in my life beautiful."], ["I think this is the most favorite photo of us po cause look how you show your tongue how you smile it so damn beautiful po i really love seeing our face making a silly face on picture po na not too formal like with silly face formal pic with pose pics po like we usually we do na naka peace sign or what po i really love doing that on a picture with you po mommy hehe i really love doing that with you po."], ["I love doing some energetic pose po na you feel comfortable on me but its all my fault I\u2019m sorry anyway i really love seeing smile and i love being with you po i love that you are by my side po i want to be with you forever i dont want to lose you again I will be better enough for you i want to be better for you po"], ["I already save alot of your pictures on telegram po mommy hehe i almost forgot about that you can send the pictures from sim to telegram po, I love looking these picture po mommy, i always imagine your face, your voice, your smile, you laugh, when im imagining that po it feels so good po <: I love you so much mommy ko I love you pretty mommy"], ["This is the day that i want to eat your graham balls po mommy i really want what you made po like mga ulam po na niluluto mo po like kangkong mga ginagawa mo po like mango graham cake and graham balls i really love that po 100% po no joke and the most favorite ulam na niluto mo po na gustong gusto ko po lagi kainin is yung pechay mo po super sarap po nun, i remember the day na sabi mo po papakainin mo po me kasi ulam pechay po nahihiya po ako nun pero pinauwi mo napo ako nun pero nakalimutan mo po yun, pero po i really love it po gustong gusto k po nun i can eat how many rice basta po luto mo po mommy i will it eat po mommy!!!!!"], ["This day po eto po yung naka libre po tayo kila yoona po na nag laro po sila sa sm po una po di po naniwala po pero ayun pina ano padin po tayo mommy, and i remember na naiinis kapo sa batang babae kasi nakikisali sya saten po tapos si yoona muntikan na makipag away tapos sinaway mo po it was so fun po mommy hehe.", "Next eto po tinakpan ko po", "I KNOW THIS POOOOO or no? This day po eto po nag laro po tayo nang basketball po sa novaplaza po tapos wala syang level level parang lumang basketball arcade lang po ganun po.", "I remember when we\u2019re senior highschool or highschool you ask me to sing i really dont sing that time po ehh like pinilit ko po for you po and i remember the day na parang nag yaya po ikaw dati mag karaoke pero di yung yaya na sa sm fairview ganun po ewan po i just remember that you said that on shs days po mommy.", "And this is the day na SUPER SUPER AKONG KINABAHAN NANG SOBRA LIKE AS IN SUPER KABA PO LIKE ETO TALAGA YUNG NUMBER 1 PO NA SUPER KABA KO PO AND THE NEXT PO IS YUNG ABOUT SA CP MO PO NA BUDOL BUDOL, LIKE SUPER KABA KO DITO PO I DONT KNOW WHAT SHOULD I DO NASA ISIP KO PO NUN UMALIS NA TAYO DUN AND PUMUNTA NA NANG HOSPITAL EH\ud83d\ude2d\ud83d\ude2d\ud83d\ude2d\ud83d\ude2d\ud83d\ude2d", "THIS IS OUR FAVORITE GAME ON TOMS WORLD KASI PUMAPALDO TAYO KAHIT PAUBOS NA YUNG PERA NATENNNNNNN TAPOS PERO MINSAN HINDI PO, AND I REMEMBER THE DAY NA NANALO AKO NA SUPER DAMI TAPOS KINABUKASAN MAY PUPUNTAHAN TAYO AKALA KO DI PA NATEN GAGAMITIN YOU ASK ME KUNG NASAAN YUNG TOKEN AKALA MO PO NAG BIBIRO PO AKO PERO DI PO PALA THEN AYUN NAG TRICYCLE PO TAYO PAPUNTA SAMEN WAHAHHAAHAH BUT SUDDENLY OUR GAME ARE NOT AVAILABLE NAPO DUN >:"], ["I downloaded alot of your picture po from the telegram before i download it i just scroll it first and look it every each of your picture, i remember im the one taking a picture of these po the first picture po is my one of my favorite pic of yours po it looks like old photo po na kinunan nung 90\u2019s."], ["This is the day pupunta po tayo sa national museum arts po eh", "I dont know why po tayo nasa bus nyan that time kasi kasama naten si derick nyan tapos sinave naten upuan ni isay and before tayo umalis po", "Kumain po muna po us nang mcdo po, and i know rice po kinain ko po ikaw po french fries po.", "And this is the day na i ask you to take us a picture on the side mirror po nang jeep", "Pero po ayaw mo po mag picture", "Kasi po sabi mo po oily face ka po", "Thats why your hiding your face po when we\u2019re taking some pictures po.", "And this is the day na may nakita po tayong mirror on the jeep magkabilaan po yan.", "At first we\u2019re laughing kasi may mirror po sa jeep like dalawa pa yung mirror and it was unexpected for us namay mirror po dun", "And every time we see the jeep with the mirror everytime we say or i say po eto yung jeep na sinakyan naten dati"], ["We taking a photo booth every month po and i\u2019m sorry if di napo us nag photobooth because of me i really love photo booth din po"], ["number 3 is my favorite picture sa lahat po nang pics mo po na naka strawberry po its so pretttyyyyyyyyyyy"], ["I think this is required po sainyo po and samin din?"], ["these pics po mommy i really love these po its so cutie po naten dito po and i really love it po mommy i love these po i love you so much mahal na mahal po kita"], ["It\u2019s my plan to buy you a camera cause i know you want it for a long time napo i didnt just look the camera and bought it, I check how good the camera is i think i search alt before buying it for you po mommy."], ["this is at paraiso ni baste and sa luzviminda po nung kay tito po mommy your swimsuit here po is super bagay po sayo and so sexy po mommy super bagay na bagay when taking a picture it super gandaaaa po and the favorite pool naten jan yung hot spring hehe kapag medyo matagal napo dun di naten nararamdaman yung init pero kapag kaka baba lang dun ramdam naten po tapos sa luzviminda po dun yung nag online class po ikaw"], ["These picture po at paraiso ni baste i really love it im so happy to be with you po mommy and also im so shy po kasi kasama sila lola and the time na aalis din ulit po tayo kinabukasan po mommy ayun nahihiya po ako and nasa isip ko po nun ano kaya nasa isip nang mga kasama naten dun and sila daddy po na we\u2019re sleeping po"], ["DAMN i have alot of pictures of you na naka strawberry hehe you will know what is my favorite hat when taking pictures ha and also theres a pink and pantern im curious kanino kaya yyan"], ["I forgot kung saan po tayo pumunta nyan and i still remember that i ask you to take a pic po and i know where we are that pic po and pauwi napo tayo nyan malapit po tayo kila shancez po nyan mmmy and i think napunta tayo sa anti rabies? Or no? Tapos ang sakit nang paa ko nag lagay tayo nang band aid"], ["and ofcourse theres hopeaaaa nasa birthday po ni pio and im so happy na kinuha naten si hopea po and super liit po ni hopea po and i remember when nag walk po tayo patigilid yung takbo ni hopea po tapos nalusot pa paa ni hopea sa butas"], ["i really love your tongue pics po its so cuttieeeeeeee i really love it po mommy and also the churos po hehe so pretty so cuttie patotieeeeee"], ["and also si hopeaaaa ulit we take a picture on big brew po that time po eh and may hawak po akong kusot nyan that time for kila lala and niknik and also the ferris wheel po i know we have video of that po na natatakot po ikaw its so cutieeee when your scared po mommy ko na sinasabi mo po na mahuhulog daw tayo or mahuhulog yung cp po mommy and we\u2019re looking for isay kasi naka sakay din sila saten"], ["and also kila mamu im so shy there po everytime na kila mamu po tayo and iremember na nag sandok ako for both of us di po yan yun iba pa po yun eh yung nakanta po ikaw dati tapos nung kakain na po ayun birthday ni mamu tapos nung kakain na po tayo ano po ung baka na sinigang nahulog tapos pinulot ko po dahil nainom po tayo."], ["luh nasama tong una po di naman dapat kasama yan dito eh any ways i love your every solo pics im looking your pics na malaki yung mata po hehe sososososososo gorgeoussssssss nang mommy koooooo"], ["this is the day na pumunta po tayo kila tito po dito we take alot of pics po from your camera po mommy and these pics po is pauwi napo tayo this time buti na abutan naten yung lrt po and i remember na sinabi ko sayo na bababa tayo nang sm north bayun or balintawak but you didnt believe on me and you ask daddy kung san tayo baba WHAHAHAHAHHAHA."], ["this day po is yung nasayaw po tayo and mommy laughing at me kasi yung ulo ko daw, and also samay bgc po na grand canal im planning to go there again with you na tayong dalawa lang and ride a boat and take alot of pics po with your camera and your phone po kahit saglitan lang po tayo jan sa mini boat, when we go there i really want to go there again but walang kasama only you lang po im thinking kung kelan pwede tayo makapunta to suprise you na sasabihin ko sayo na punta po tayo dito kung which date na malapit."], ["this pics po i want these before i really like your pics po mommy ko gustong gusto ko po toh mommy i really love it mommy you\u2019re so gorgeous mommy i really love it mommy ko i really love you so much mommyyyyyyyyyyyyyyyyyyyyy ARGGHHHHH SO PRETTTTTTYY"], ["THIS IS THE HALLOWEEN PIC POOOOO hehe i really want to join there po eh i really want to dress some vampire eh pero friends only lang po"], ["i really love eating kyuu kyuu with you po and i want to order something more than 99 pess only po i want to try alot of flavor po mommy"], ["THE MOST AND ONLY BEAUTIFUL MOMMY KOOOOOOOOO SO PRETTTTTYY I REALLY LOVE THESE PICS POOOOOOOOOOOOOOOOOOOOOOOOOOOOOO I WANT TO BITE YOU SO HARD SO MUCHHHHHHHHHHHHHHHHHHHHHHHHHHH I LOVE YOU SOMUCHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"], ["we look so cuttieee here po mommy hehe it looks so funny po when we\u2019re making some funny face but i dont remember kung nasan po tayo that time po."], ["FRIESSSS AND JABIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"], ["MY CUTTIEEEE LITTLE MOMMY CHOPPERRRRRRR I LOVE YOUR POSEEE HERE MOMMY ITS SO CUTTIEEEE PO SO PRETTY SUPER GANDAAAAAAA SOBRANG GANDAAA MO PO MOMMY KOOOOO I LOVE YOU SO MUCHHHHH AND I MISS YOU SO MUCHHHH MOMMY I WANT TO HUG YOU SO BAD I WANT TO BITE YOU SO HARD I WANT TO BE WITH YOU UNTIL THE END MOMMY I LOVEEEE YOUUUU SO SEXXXXXYYY"], ["THIS PIC PO NAHIHIYA PO AKO DITO MAG PIC KAPAG SA MGA IBANG BAHAY PO BUT YOUR SO SOSOSOSOS SEXYYYYYYYYYY"], ["HELLO MISS BEAUTIFUL WHATS YOUR NAME? I GOT AN AMNESIA BY LOOKING AT YOUR BEAUTIFUL FACE HEHE"], ["MY FAVORITE PIC WITH YOU NA NAKA HOLDING HANDS HEHE <: SO HAPPY WITH YOU"], ["when remembering this pics po im so happy po when im imagining things po with you i always smile and i always laugh po mommy i really love when imagining things with you po mommy i really love you"], ["i love your 2nd pic po so sexy po tignan po i really love it and also your other solo pics po i really love when looking at your solo pics po mommy ko"], ["i really love eating with you po mommy na bibili po tayo nang kahit ano po like isaw isaw dugo dugo and anything we want po i really love that every time we buy anything po mommy ko"], ["this pic po yung nag eat po tayo sa unli wings po pero di naman unlimited yung wings yung rice and gravy lang yung unli po"], ["FOODIEEEE WITH YOU MOMMY THE BEST THING WE DO EATING ALOT OF FOODIEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE I REALLY WANT TO EAT OUR FAVORITE FOODIE WITH ONLY US PO NO ONE ELSE TAYO LANG GUSTONG GUSTO KO PO NUN NA TAYONG DALAWA LANG PO"], ["AND ALSO YOUR BIRTHDAY LAST YEAR AND TODAY IS YOUR BIRTHDAY MOMMMY"], ["I LOVE YOU VERY MUCH PRETTY MOMMY SO PRETTYY PRETTY"], ["I ALWAYYS WANTED TO EAT WITH YOU MOMMY KO I WANT TO EAT WHENEVER WE WANTTTTTT MOMMMY I LOVE YOU SO MUCHHHH"], ["Oh angas nang buhok ko dito but i dont remember kung pano tayo nag pic and kung san po ito mommy"], ["my favorite cow girl and no one else cow boy and cow girl i love you mommy kooooo i love taking pictures 2 of us mommy"], ["and also po mommmy i really love eating pizza the flavor we want na nakain lang naten is isang beses lang po and the rest wala napong ganun too sad po but the other one still our favorite but it hits different when may ganung flavor po mommy, and thank you for the cake mommy ko, and if your reading this im planning to buy you some cake na nakikita ko lagi sa sm fairview the cake with the flowers but iba na yung flowers po dun i ask ate there last week if may iba pa silang design pero wala na daw yung sakanila is mga malalaki napong flowers po"], ["and also the last one mommy im so lucky to have you in my life mommy from the beginning i dont want to hurt you and i dont want to make you cry but i made you cry im sorry for the everything i did po mommy ko i dont want to make that happen po mommy i dont want to hurt your feelings po and i dont want to do that po and i dont have any intentions to hurt you or cheat on you mommy from the beginning i dont have any intention to cheat on you or what or iwan ka po i dont have intention of that and wala pong pumasok sa isip ko na gusto kitang bitawan and i dont have any intention to leave you mommy i really love you na hindi kita kayang bitawan i always want to fight for both of us gusto ko pong ilaban po mommy believe it or not i never said to my self na iiwan kita or mag hahanap ako nang kapalit mo or any of things na lolokohin kita i never said that on my self even in my mind i always think about you mommy i\u2019m always worried about you kapag lumalabas ka po na wala pong kasama na di mo po kasama kasi madaming nang yayari if wala po ako sa tabi mo po mommy i dont want that to happen po mommy and ayaw ko po mang yari ulit sayo yung mga nang yari dati po, i will be better and i will be man to take care of you in the better way, the way you wanted po i want you mommy i want you in my life po."]],
+  decoy:[
+    ["What’s your favorite color?","Any answer is lovely."],
+    ["Pick a snack for a movie night","Popcorn gets a vote from us."],
+    ["Type a secret word","Shh… it won’t unlock anything, though ♡"]
+  ]
+};
+const $=id=>document.getElementById(id);
+const screens=[...document.querySelectorAll('.screen')];
+function go(id){screens.forEach(s=>s.hidden=s.id!==id);const t=$(id);t.style.animation='none';t.offsetHeight;t.style.animation='';const f=t.querySelector('input,select,button');if(f&&id!=='g')f.focus({preventScroll:true});window.scrollTo(0,0)}
+let letterDone=false;$('letter').textContent='';
+
+/* floating hearts / petals */
+const fx=$('fx'),sy=['♥','✿','♡','✦','❀'];
+for(let i=0;i<22;i++){const s=document.createElement('span');s.textContent=sy[i%5];
+ s.style.cssText=`left:${Math.random()*100}%;font-size:${14+Math.random()*22}px;animation-duration:${12+Math.random()*14}s;animation-delay:${-Math.random()*20}s;--dx:${(Math.random()-.5)*160}px;--r:${(Math.random()-.5)*360}deg`;fx.appendChild(s)}
+
+/* page 1: name */
+const norm=s=>s.trim().replace(/\s+/g,' ').toLowerCase();
+let d=0;
+function nameGo(){startMusic();
+ if(norm($('nm').value)===norm(CONFIG.name)){$('nmMsg').textContent='';go('bday')}
+ else if(!$('nm').value.trim()){$('nmMsg').textContent='Please type your full name first ♡'}
+ else{$('nmMsg').textContent='';impostor=true;go('bday')}
+}
+$('nmGo').onclick=nameGo;$('nm').onkeydown=e=>{if(e.key==='Enter')nameGo()};
+
+/* decoy route (3 screens, never unlocks anything) */
+function showDecoy(){$('dStep').textContent=`Little game ${d+1} of 3`;$('dQ').textContent=CONFIG.decoy[d][0];$('dHint').textContent=CONFIG.decoy[d][1];$('dIn').value='';$('dIn').setAttribute('aria-label',CONFIG.decoy[d][0]);$('dGo').textContent=d===2?'Finish':'Next'}
+function decoyNext(){if(d<2){d++;showDecoy();$('dIn').focus()}else{$('nm').value='';go('decoyEnd')}}
+$('dGo').onclick=decoyNext;$('dIn').onkeydown=e=>{if(e.key==='Enter')decoyNext()};
+$('dBack').onclick=()=>{d=0;go('name');$('nm').focus()};
+
+/* page 2: birthday */
+const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const opt=(s,l,v)=>s.add(new Option(l,v));
+opt($('bd'),'Day','');for(let i=1;i<=31;i++)opt($('bd'),i,i);
+opt($('bm'),'Month','');months.forEach((m,i)=>opt($('bm'),m,i+1));
+opt($('by'),'Year','');for(let y=new Date().getFullYear();y>=1930;y--)opt($('by'),y,y);
+const B=CONFIG.birthday,bSet=B.day&&B.month&&B.year;$('bOwner').hidden=!!bSet;
+$('bGo').onclick=()=>{
+ const d1=$('bd').value,m1=$('bm').value,y1=$('by').value;
+ if(!d1||!m1||!y1){$('bMsg').textContent='Please choose day, month and year ♡';return}
+ if(!bSet||(d1==B.day&&m1==B.month&&y1==B.year)){$('bMsg').textContent='';go('lock')}
+ else{$('bMsg').textContent='';impostor=true;go('lock')}
+};
+
+/* page 3: passcode */
+function unlock(){
+ const v=$('pass').value;
+ if(!v){$('pMsg').textContent='Type the six-digit key first ♡';return}
+ if(v===CONFIG.secretCode){$('pMsg').textContent='';$('pass').value='';go('secret');typeInto($('upd'),CONFIG.updateText)}
+ else if(v===CONFIG.passcode&&!impostor){$('pMsg').textContent='';go('reveal')}
+ else notMommy(v===CONFIG.passcode?'YOU ARE NOT MOMMY!':'WHO ARE YOU? YOU ARE NOT MOMMY!');
+}
+$('pGo').onclick=unlock;$('pass').onkeydown=e=>{if(e.key==='Enter')unlock()};
+
+/* confetti (light, ~4s) */
+function confetti(){
+ if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ const c=$('conf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
+ const cols=['#C75B78','#F4C9D5','#FFF9F6','#E8A3B5','#512D3B'];
+ const P=Array.from({length:64},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,v:2+Math.random()*3,w:6+Math.random()*6,a:Math.random()*6,c:cols[Math.random()*5|0],h:Math.random()<.35}));
+ let t=0;(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.v;p.a+=.08;p.x+=Math.sin(p.a);x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.a);p.h?(x.font=p.w*2+'px serif',x.fillText('♥',0,0)):x.fillRect(0,0,p.w,p.w*.6);x.restore()});
+ if(++t<260)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})();
+}
+
+/* pages 5–9: gallery */
+const PAGES=Math.ceil(CONFIG.photos.length/4);let gp=0;
+function gallery(){
+ $('gT').textContent=`Memories ${gp+1} of ${PAGES}`;$('grid').innerHTML='';
+ for(let k=0;k<4;k++){const i=gp*4+k;if(i>=CONFIG.photos.length)break;const b=document.createElement('button');b.className='tile';b.setAttribute('aria-label',`Open note for photo ${i+1}`);
+  const L0=imgs(i),cv=L0[(CONFIG.covers[i]||0)%(L0.length||1)];b.style.setProperty('--r',(k%2?1.8:-1.8)+'deg');
+  b.innerHTML=(cv?`<img src="${cv}" decoding="async" alt="${CONFIG.alts[i]}">`:'<span aria-hidden="true" style="font-size:2rem">♡</span>')+`<span class="n">♡ ${i+1}</span><span class="tap">tap to open ♡</span>`;
+  b.onclick=()=>openPhoto(i,b);$('grid').appendChild(b)}
+ $('dots').innerHTML=Array.from({length:PAGES},(_,i)=>i).map(i=>`<i class="${i===gp?'on':''}"></i>`).join('');
+ $('gEnd').hidden=gp!==PAGES-1;$('gVid').hidden=gp!==PAGES-1;$('gNext').textContent=gp===PAGES-1?'Back to memories':'Next';$('gPrev').textContent=gp===0?'Back to letter':'Previous';
+}
+$('rNext').onclick=()=>{$('letter')._fin&&$('letter')._fin();gp=0;gallery();go('g')};
+let busy=false;
+function turn(dir,change){
+ if(busy)return;busy=true;const pg=$('pg'),P='perspective(1100px) rotateY(';
+ pg.style.transformOrigin=dir>0?'left center':'right center';
+ pg.style.transition='transform .38s ease-in,opacity .38s';pg.style.transform=P+(dir>0?-90:90)+'deg)';pg.style.opacity='.25';
+ setTimeout(()=>{change();window.scrollTo(0,0);
+  pg.style.transition='none';pg.style.transformOrigin=dir>0?'right center':'left center';pg.style.transform=P+(dir>0?90:-90)+'deg)';void pg.offsetWidth;
+  pg.style.transition='transform .42s ease-out,opacity .42s';pg.style.transform=P+'0deg)';pg.style.opacity='1';
+  setTimeout(()=>busy=false,430)},380)}
+$('gNext').onclick=()=>turn(1,()=>{gp=gp===PAGES-1?0:gp+1;gallery()});
+$('gPrev').onclick=()=>{if(gp===0)go('reveal');else turn(-1,()=>{gp--;gallery()})};
+/* typewriter */
+let T=null;
+function typeInto(el,text,done){
+ clearInterval(T);
+ if(matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=text;done&&done();return}
+ let i=0;const step=Math.max(1,Math.ceil(text.length/260));el.textContent='';el.classList.add('typing');
+ const fin=()=>{clearInterval(T);el.textContent=text;el.classList.remove('typing');el.scrollTop=0;el._fin=null;done&&done()};
+ el._fin=fin;T=setInterval(()=>{i=Math.min(text.length,i+step);el.textContent=text.slice(0,i);el.scrollTop=el.scrollHeight;if(i>=text.length)fin()},45)
+}
+$('letter').onclick=()=>$('letter')._fin&&$('letter')._fin();
+$('noteT').onclick=()=>$('noteT')._fin&&$('noteT')._fin();
+
+/* flip-and-center photo card */
+let cur=null;
+const noteFor=(i,k)=>{const a=CONFIG.notes[i];if(Array.isArray(a)){if(a.length===1&&a[0])return a[0];if(a[k])return a[k]}else if(a&&k===0)return a;return k===0?`[WRITE A NOTE FOR PHOTO ${i+1} HERE]`:`[WRITE A NOTE FOR PHOTO ${i+1} · PICTURE ${k+1} HERE]`};
+const imgs=i=>{const p=CONFIG.photos[i];return Array.isArray(p)?p:(p?[p]:[])};
+function face(i,swap){
+ const L=imgs(i),n=L.length||3,k=cur.k%n,ph=$('ph');
+ ph.innerHTML=(L.length?`<img src="${L[k]}" alt="${CONFIG.alts[i]} (${k+1} of ${n})">`:`<div class="ph" style="background:linear-gradient(${140+k*40}deg,#FCEEF2,#F4C9D5)"><div><span aria-hidden="true">♡</span><small>[PHOTO ${i+1} · IMAGE ${k+1}]</small></div></div>`)+`<span class="cnt">${k+1}/${n}</span><span class="tap">tap to change photo</span>`;
+ ph.setAttribute('aria-label',`Photo ${i+1}, image ${k+1} of ${n}. Tap to change.`);
+ if(swap){ph.classList.remove('swap');void ph.offsetWidth;ph.classList.add('swap')}
+}
+function openPhoto(i,tile){
+ if(cur)return;cur={i,tile,k:0};photoOn(i);
+ const r=tile.getBoundingClientRect(),cd=$('card'),nt=$('note');
+ const ti=tile.querySelector('img');$('fr').innerHTML=(ti?`<img src="${ti.src}" alt="">`:'<span aria-hidden="true">♡</span>')+`<span class="n">♡ ${i+1}</span>`;face(i);
+ Object.assign(cd.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
+ cd.classList.remove('flipped');nt.classList.remove('show');$('noteT').textContent='';
+ $('ov').hidden=false;tile.style.visibility='hidden';void cd.offsetWidth;
+ const w=Math.min(innerWidth*.8,340),h=Math.min(w*1.2,innerHeight*.45),t=Math.max(14,(innerHeight-h-200)/2);
+ $('ov').classList.add('on');cd.classList.add('flipped');
+ Object.assign(cd.style,{left:(innerWidth-w)/2+'px',top:t+'px',width:w+'px',height:h+'px'});
+ nt.style.top=(t+h+16)+'px';
+ setTimeout(()=>{if(!cur)return;nt.classList.add('show');typeInto($('noteT'),noteFor(i,0))},1000);
+}
+$('ph').onclick=()=>{if(!cur)return;cur.k++;face(cur.i,true);typeInto($('noteT'),noteFor(cur.i,cur.k%(imgs(cur.i).length||3)))};
+function closePhoto(){
+ if(!cur)return;const tile=cur.tile;cur=null;clearInterval(T);photoOff();
+ const cd=$('card'),r=tile.getBoundingClientRect();
+ $('note').classList.remove('show');cd.classList.remove('flipped');$('ov').classList.remove('on');
+ setTimeout(()=>Object.assign(cd.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'}),300);
+ setTimeout(()=>{$('ov').hidden=true;tile.style.visibility=''},1150);
+}
+$('dlgX').onclick=closePhoto;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePhoto()});
+
+/* music: main song + optional per-photo songs; main resumes where it stopped */
+const prog=[[261.63,329.63,392,523.25],[220,261.63,329.63,440],[174.61,261.63,349.23,440],[196,246.94,392,493.88]];
+let ac,master,mi=0,mt,main,pSong,mode='main',on=false,muted=false;
+function setMus(v){on=v;const m=$('mus');m.textContent=v?'⏸':'▶';m.classList.toggle('off',!v);m.setAttribute('aria-pressed',v);m.setAttribute('aria-label',v?'Pause music':'Play music')}
+function step(){const c=prog[(mi>>3)%4],f=c[[0,1,2,3,2,1,3,2][mi%8]],t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();mi++;
+ o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.13,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+1.5);o.connect(g);g.connect(master);o.start(t);o.stop(t+1.6)}
+function mainPlay(){try{
+ if(CONFIG.song){main=main||Object.assign(new Audio(CONFIG.song),{loop:true,volume:.6});main.play().catch(()=>{})}
+ else{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(!master){master=ac.createGain();master.gain.value=.6;master.connect(ac.destination)}
+  ac.resume();clearInterval(mt);mt=setInterval(step,460);step()}}catch(e){}}
+function mainPause(){main&&main.pause();clearInterval(mt);ac&&ac.suspend()}
+function startMusic(){if(on||muted||mode==='video')return;if(mode==='photo'&&pSong)pSong.play().catch(()=>{});else mainPlay();setMus(true)}
+function photoOn(i){const u=CONFIG.photoSongs[i];if(!u)return;const was=on;mainPause();mode='photo';
+ pSong=Object.assign(new Audio(u),{loop:true,volume:.7});if(was)pSong.play().catch(()=>{})}
+function photoOff(){if(mode!=='photo')return;pSong.pause();pSong=null;mode='main';if(on)mainPlay()}
+$('mus').onclick=()=>{if(on){muted=true;if(mode==='photo'&&pSong)pSong.pause();else mainPause();setMus(false)}else{muted=false;startMusic()}};
+
+/* hidden update page */
+$('sBack').onclick=()=>go('lock');
+$('updList').innerHTML=CONFIG.updates.map(u=>`<div class="letter" style="margin-top:14px"><b>${u.title}</b> · <small>${u.date}</small><br>${u.text}</div>`).join('');
+
+/* videos: 1) solo clip → 2) the two clips of you together (joined in one file) → 3) LASTVID (your gift vlog) */
+const VIDEOS=[
+ {src:"videos/video1.mp4",eye:"Video 1 of 2 ♡",note:"my favorite video of yourself"},
+ {src:"videos/video2.mp4",eye:"Video 2 of 2 ♡",note:"You are a part of my whole life. You aren't just a part of 2026 or 2025 or any other years you are at the very center of all of it. You are so important to me, and I love you with everything I have, at my absolute fullest."},
+
+ /* ╔═══════════════════════ LASTVID ═══════════════════════╗
+    ║  >>> MINI VLOG FOR YOU  (your gift vlog goes here) <<< ║
+    ║  This is the LAST stage, shown after the 3 videos.    ║
+    ║  1) Copy your vlog into the "videos" folder           ║
+    ║  2) Name it:   lastvid.mp4                            ║
+    ║     (these names also work automatically:             ║
+    ║      lastvid.mov  or  minivlog.mp4)                   ║
+    ║  3) Change the note text below if you want            ║
+    ║  If no file is found, the stage still shows with a    ║
+    ║  "coming soon" note (nothing breaks).                 ║
+    ╚═══════════════════════════════════════════════════════╝ */
+ {srcs:["videos/lastvid.mp4","videos/lastvid.mov","videos/minivlog.mp4"],eye:"Mini vlog for you ♡",note:"a little vlog of me buying your gift ♡",missing:"(my mini vlog is coming soon ♡)"}
+];
+let vi=0,vTimer=null,vTry=0;
+const vp=$('vp');
+function fitVid(){ /* size the player to the video's real shape (wide or tall), as big as the screen allows */
+ const r=(vp.videoWidth&&vp.videoHeight)?vp.videoWidth/vp.videoHeight:16/9,w=$('vWrap');
+ w.style.aspectRatio=r;w.style.width='min(100%,'+(r*68).toFixed(1)+'vh)'}
+function vMusicOff(){if(mode==='photo'&&pSong){pSong.pause();pSong=null}mainPause();mode='video';$('mus').style.display='none'}
+function vMusicOn(){if(mode!=='video')return;mode='main';$('mus').style.display='';if(on&&!muted)mainPlay()}
+function playVideo(i,first){
+ clearTimeout(vTimer);vi=i;const V=VIDEOS[i],w=$('vWrap');
+ const load=()=>{
+  $('vEye').textContent=V.eye;$('vAgain').hidden=true;w.hidden=false;
+  vTry=0;vp.src=V.srcs?V.srcs[0]:V.src;vp.currentTime=0;
+  typeInto($('vNote'),V.note);
+  w.classList.remove('fade');
+  const p=vp.play();p&&p.catch(()=>{}); /* if the phone blocks autoplay, she can tap play */
+ };
+ if(first){vMusicOff();go('vid');load()}
+ else{w.classList.add('fade');setTimeout(load,400)}
+}
+function finishVideos(missing){
+ $('vAgain').hidden=false;
+ if(missing){$('vWrap').hidden=true;typeInto($('vNote'),VIDEOS[VIDEOS.length-1].missing)}
+ else $('vNote')._fin&&$('vNote')._fin();
+}
+$('gVid').onclick=()=>{closePhoto();playVideo(0,true)};
+vp.addEventListener('loadedmetadata',fitVid);
+vp.addEventListener('ended',()=>{
+ if(vi<VIDEOS.length-1){vTimer=setTimeout(()=>playVideo(vi+1,false),1200)}
+ else finishVideos(false);
+});
+vp.addEventListener('error',()=>{ /* LASTVID file missing → try the other file names, then end gracefully */
+ const V=VIDEOS[vi];if(!vp.getAttribute('src')||!V.srcs)return;
+ if(vTry<V.srcs.length-1){vTry++;vp.src=V.srcs[vTry];const p=vp.play();p&&p.catch(()=>{});return}
+ console.warn('LASTVID: could not find '+V.srcs.join(' or ')+' — put your vlog in the videos folder.');finishVideos(true)});
+$('vAgain').onclick=()=>playVideo(0,false);
+$('vBack').onclick=()=>{clearTimeout(vTimer);vp.pause();vp.removeAttribute('src');vp.load();clearInterval(T);vMusicOn();gp=PAGES-1;gallery();go('g')};
+$('vNote').onclick=()=>$('vNote')._fin&&$('vNote')._fin();
+
+/* photo safety net: retry once, then show a heart instead of a broken-image icon */
+document.addEventListener('error',e=>{const t=e.target;if(!t||t.tagName!=='IMG')return;const u=t.getAttribute('src')||'';
+ if(!t.dataset.retry&&u.indexOf('data:')!==0){t.dataset.retry=1;console.warn('Photo not loading, retrying:',u);t.src=u+(u.indexOf('?')<0?'?':'&')+'r='+Date.now()}
+ else{const h=document.createElement('span');h.textContent='♡';h.style.fontSize='2rem';t.replaceWith(h)}},true);
+
+/* ===== gift wrapper → letter ===== */
+let impostor=false,giftOpened=false;
+function burst(el){const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.4,ic=['♥','✦','♡','✿'],co=['#C75B78','#E9A06A','#F4A9BE','#E07A97'];
+ for(let i=0;i<24;i++){const e=document.createElement('span');e.className='bp';e.textContent=ic[i%4];
+  const an=Math.random()*Math.PI*2,dist=90+Math.random()*140;
+  e.style.cssText='left:'+cx+'px;top:'+cy+'px;--x:'+(Math.cos(an)*dist)+'px;--y:'+(Math.sin(an)*dist-60)+'px;font-size:'+(14+Math.random()*16)+'px;color:'+co[i%4];
+  document.body.appendChild(e);setTimeout(()=>e.remove(),1400)}}
+$('gift').onclick=()=>{
+ if(giftOpened)return;giftOpened=true;const g=$('gift');
+ g.classList.add('shake');
+ setTimeout(()=>{g.classList.remove('shake');g.classList.add('open');burst(g);confetti()},700);
+ setTimeout(()=>{$('giftWrap').hidden=true;$('lbox').hidden=false;railUpdate();
+  typeInto($('letter'),CONFIG.letter,()=>{letterDone=true;$('rNext').hidden=false;railUpdate()})},2500);
+};
+function resetGift(){giftOpened=false;clearInterval(T);$('gift').className='gift';$('giftWrap').hidden=false;$('lbox').hidden=true;$('rNext').hidden=true;letterDone=false;$('letter').textContent=''}
+
+/* heart scroll rail for the letter */
+const LT=$('letter'),LF=$('lframe'),RL=$('rail');
+function railUpdate(){
+ const max=LT.scrollHeight-LT.clientHeight,p=max>2?LT.scrollTop/max:0,h=RL.clientHeight;
+ $('railH').style.top=(p*h)+'px';$('railFill').style.height=(p*h)+'px';
+ LF.classList.toggle('st',LT.scrollTop>6);LF.classList.toggle('end',max<=2||LT.scrollTop>=max-6);RL.style.opacity=max>2?1:0}
+LT.addEventListener('scroll',railUpdate);addEventListener('resize',railUpdate);
+let rdrag=false;
+const rseek=e=>{const r=RL.getBoundingClientRect(),p=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height));LT.scrollTop=p*(LT.scrollHeight-LT.clientHeight)};
+RL.addEventListener('pointerdown',e=>{rdrag=true;RL.setPointerCapture(e.pointerId);rseek(e)});
+RL.addEventListener('pointermove',e=>{if(rdrag)rseek(e)});
+RL.addEventListener('pointerup',()=>rdrag=false);RL.addEventListener('pointercancel',()=>rdrag=false);
+
+/* ===== "YOU ARE NOT MOMMY" screen + restart ===== */
+function notMommy(t){$('pass').value='';$('nopeTitle').textContent=t;go('nope')}
+$('nopeRestart').onclick=()=>{
+ impostor=false;$('nm').value='';['bd','bm','by'].forEach(k=>$(k).value='');$('pass').value='';
+ ['nmMsg','bMsg','pMsg'].forEach(k=>$(k).textContent='');resetGift();go('name');$('nm').focus()};
+</script>
+</body>
+</html>
